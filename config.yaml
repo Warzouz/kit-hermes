@@ -1,0 +1,10 @@
+delegation:
+  backend: default
+  max_concurrent_children: 1
+  max_iterations: 12
+approvals:
+  mode: manual
+security:
+  redact_secrets: true
+checkpoints:
+  enabled: true

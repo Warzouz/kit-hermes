@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.EXAMPLE
+auth.json
+*.db*
+*.log
+__pycache__/
+memories/
+sessions/
+logs/
+local/
+backups/
+cache/
+profiles/
+plugins/
+node_modules/
+.dist/

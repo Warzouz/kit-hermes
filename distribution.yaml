@@ -1,0 +1,14 @@
+name: kit-hermes
+version: 0.1.0
+description: "Coordinateur personnalisable / Personalizable coordinator"
+hermes_requires: ">=0.22.5"
+license: MIT
+distribution_owned:
+  - SOUL.md
+  - config.yaml
+  - distribution.yaml
+  - .env.EXAMPLE
+  - skills/premier-demarrage
+  - skills/relecture-croisee
+  - skills/accord-avant-action
+  - skills/travail-verifiable

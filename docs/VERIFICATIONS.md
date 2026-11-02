@@ -78,7 +78,10 @@ delegation:
 Les deux identifiants majuscules illustrent le format, pas une configuration livrée.
 Le catalogue `plugin-catalog/advanced-delegation.yaml:1-24` fixe le dépôt officiel,
 le commit `b3825d097195b5748585b0491fab48c95d105c19`, la version 1.0.0 et Hermes
-minimum 0.22.5. Il précise l'absence de dépendances Python et d'appels IA propres.
+minimum 0.22.5 dans la copie embarquée inspectée. L'installation réelle a résolu
+un catalogue plus récent, référence courte `e404b681` (voir TESTS). Le catalogue
+peut donc évoluer indépendamment du checkout ; le kit ne prétend pas avoir testé
+le commit embarqué. Le catalogue précise l'absence de dépendances Python et d'appels IA propres.
 Le plugin n'est pas embarqué ; il est installé séparément avec accord.
 
 `hermes_cli/config.py:3207-3241` confirme la coercition YAML/JSON des listes et

@@ -37,5 +37,15 @@
 - Garde-fou rencontré : la création du fichier SOUL.md a été refusée avec expiration
   de l'approbation interactive. Aucun contournement tenté. Le kit est incomplet tant
   que cette création n'est pas autorisée. Les tests ne doivent pas masquer son absence.
+- L'installation effective du plugin a utilisé le catalogue actualisé : référence
+  courte `e404b681`, différente du catalogue embarqué lu dans le code. Cette
+  dérive est consignée dans TESTS ; aucun code du plugin ne figure dans le dépôt.
+- Le stockage de test est sous TMPDIR, lui-même imbriqué dans le stockage du
+  compte. HERMES_DATA_DIR_SUFFIX=-kit-isolation est nécessaire pour que la racine
+  des profils reste réellement isolée. Sans ce suffixe, l'appel a échoué sur le
+  profil actif sauvegardé, avant toute installation du kit.
+- La suppression récursive du dossier de test a été refusée par le garde-fou
+  non interactif. Aucun autre mécanisme de suppression n'a été essayé. Le dossier
+  de test reste sous TMPDIR ; le nettoyage exige une autorisation explicite.
 - Aucun lancement de conversation IA ni relecture par autre modèle sans accès
   isolé autorisé. Ne pas réutiliser les connexions de la machine hôte.

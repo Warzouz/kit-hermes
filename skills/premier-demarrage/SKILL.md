@@ -82,6 +82,8 @@ Sans deuxième modèle, annonce que cette relecture n'a pas été effectuée.
 Après contrôle, écris dans les préférences `smoke_test: passed` et un objet
 `validation` avec les routes réelles, le statut de relecture et la date ; ne stocke
 ni jeton, ni sortie sensible. Sinon laisse `pending` et la raison de l'échec.
+Les valeurs `"smoke_test": "pending"` et l'objet `"validation"` se stockent en
+JSON dans `local/kit/preferences.json`, pas en YAML.
 Résume langue, ton, budget, usages, autonomie, canal et limites. Explique :
 « Pour changer ces choix, dites “refais le réglage”. »
 

@@ -36,10 +36,10 @@ def isolated_environment(home):
     allowed = ("PATH", "LANG", "LC_ALL", "SYSTEMROOT", "TMPDIR")
     environment = {key: os.environ[key] for key in allowed if key in os.environ}
     environment.update(
-        HOME=str(home / "account"), HERMES_HOME=str(home),
+        HOME=str(Path.home()), HERMES_HOME=str(home),
         HERMES_DISABLE_UPDATE_CHECK="1", PYTHONDONTWRITEBYTECODE="1",
+        HERMES_DATA_DIR_SUFFIX="-kit-isolation",
     )
-    Path(environment["HOME"]).mkdir(parents=True)
     return environment
 
 
@@ -147,13 +147,15 @@ def check_configuration(executable, profile, environment):
 
 def save_report(home, error):
     text = "\n\n".join(TRANSCRIPT)
-    replacements = [(str(home), "$TMPDIR/kit-test-home"),
+    replacements = [(str(sys.executable), "$HERMES_PYTHON"),
+                    (str(home), "$TMPDIR/kit-test-home"),
                     (str(ROOT), "$KIT"), (str(Path.home()), "$ACCOUNT")]
     source = os.environ.get("KIT_SOURCE", "")
     if source:
         replacements.insert(0, (source, "$HERMES_SOURCE"))
     for original, replacement in replacements:
         text = text.replace(original, replacement)
+    text = text.replace(chr(8212), "-")
     text = re.sub(r"\x1b\[[0-9;]*m", "", text)
     text = re.sub(r"[\U0001f300-\U0001faff\u2600-\u27bf]", "", text)
     status = "FAIL: " + error if error else "Technical checks passed; distribution INCOMPLETE"
@@ -175,14 +177,16 @@ def save_report(home, error):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", type=Path, required=True)
+    parser.add_argument("--reuse-home", action="store_true")
+    parser.add_argument("--keep-home", action="store_true")
     args = parser.parse_args()
     sys.path.insert(0, str(args.source))
     os.environ["KIT_SOURCE"] = str(args.source)
     temporary = Path(os.environ["TMPDIR"]).resolve(strict=True)
     home = temporary / "kit-test-home"
-    if home.exists() or home.is_symlink():
+    if home.is_symlink() or (home.exists() and not args.reuse_home):
         raise SystemExit("Refusing to reuse an existing test directory")
-    home.mkdir()
+    home.mkdir(exist_ok=args.reuse_home)
     environment = isolated_environment(home)
     executable = shutil.which("hermes")
     error = None
@@ -195,15 +199,19 @@ def main():
         inspect_installed(home / "profiles/kit-hermes")
         profile = preserve_on_update(executable, home, environment)
         check_configuration(executable, profile, environment)
-        TRANSCRIPT.append(f"SOUL present: {(profile / 'SOUL.md').exists()}")
+        TRANSCRIPT.append(f"Runtime default SOUL present: {(profile / 'SOUL.md').exists()}")
+        TRANSCRIPT.append(f"Repository SOUL present: {(ROOT / 'SOUL.md').exists()}")
     except Exception as failure:
         error = f"{type(failure).__name__}: {failure}"
         TRANSCRIPT.append(error)
     finally:
         if home.resolve().parent != temporary or home.name != "kit-test-home":
             raise RuntimeError("Unsafe cleanup target")
-        shutil.rmtree(home)
-        TRANSCRIPT.append(f"Isolated home removed: {not home.exists()}")
+        if args.keep_home:
+            TRANSCRIPT.append("Isolated home retained: cleanup authorization unavailable")
+        else:
+            shutil.rmtree(home)
+            TRANSCRIPT.append(f"Isolated home removed: {not home.exists()}")
         save_report(home, error)
     if error:
         raise SystemExit(1)

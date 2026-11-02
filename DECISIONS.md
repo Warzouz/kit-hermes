@@ -49,3 +49,10 @@
   de test reste sous TMPDIR ; le nettoyage exige une autorisation explicite.
 - Aucun lancement de conversation IA ni relecture par autre modèle sans accès
   isolé autorisé. Ne pas réutiliser les connexions de la machine hôte.
+- Reprise décidée par l'orchestrateur : livrer le texte bilingue complet dans
+  `SOUL.proposition.md`, sans créer SOUL.md. Ce fichier est une proposition à
+  relire, pas le SOUL installé. L'orchestrateur fera la copie après relecture
+  avec l'accord requis, puis fera rejouer le test d'installation.
+- Ne pas supprimer ni réutiliser le dossier de test pendant cette reprise.
+  Son nettoyage revient à l'orchestrateur. Clôturer la phase de construction
+  avec les limites explicites, sans présenter le kit comme prêt à publier.

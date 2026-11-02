@@ -13,7 +13,9 @@ risquées. Aucune donnée ni connexion personnelle distribuée.
 ## Contenu attendu
 
 - Manifeste Profile Distribution, configuration neutre et exemple sans secret.
-- SOUL bilingue lisant les préférences locales : non créé, approbation requise.
+- SOUL bilingue lisant les préférences locales : texte livré dans
+  `SOUL.proposition.md`. Copie en SOUL.md réservée à l'orchestrateur après
+  relecture et accord, puis nouveau test d'installation.
 - Skill `premier-demarrage` : questionnaire avec `clarify`, une question à la fois.
 - Trois skills de méthode : accords, relecture croisée et travail vérifiable.
 - Guides français et anglais, licence MIT, décisions, sources et tests réels.

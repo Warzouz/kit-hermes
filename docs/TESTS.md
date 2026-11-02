@@ -175,5 +175,35 @@ source de 300 lignes ni plafond de fonction de 60 lignes dépassé.
   textuels, sans captures présentées comme observées.
 - Réinstallation forcée : non testée et non recommandée pour une mise à jour.
 
-Le critère de fin complet n'est pas atteint. Le nettoyage du profil de test et
-la création autorisée du SOUL restent nécessaires, puis les tests IA et Desktop.
+Le critère de fin complet de la distribution n'est pas atteint. La phase de
+construction est remise à l'orchestrateur selon ses décisions de reprise.
+
+## Reprise : proposition de SOUL
+
+Le texte bilingue complet est livré dans `SOUL.proposition.md` pour relecture.
+SOUL.md n'a pas été créé et le dossier de test n'a pas été supprimé ni réutilisé.
+L'installation ci-dessus a donc été testée **sans SOUL.md du kit**. La proposition
+n'a pas été chargée comme identité du profil et son comportement n'est pas validé.
+
+L'orchestrateur copiera la proposition en SOUL.md après relecture et accord, puis
+fera un nouveau test d'installation. Il faudra contrôler que le SOUL installé
+correspond au fichier du kit et que l'absence de préférences déclenche la skill.
+Les tests IA, la relecture inter-modèles et les parcours Desktop restent à faire.
+Le nettoyage du dossier de test revient à l'orchestrateur.
+
+Contrôles rejoués sur les 21 fichiers, proposition incluse :
+
+```text
+$ PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_quality.py
+Quality checks: PASS (21 files)
+Distribution acceptance: INCOMPLETE (SOUL.md missing)
+$ PYTHONDONTWRITEBYTECODE=1 python3 scripts/scan_distribution.py
+Scanned 21 files; findings: 0
+gitleaks: absent; documented regex fallback used (not entropy detection)
+$ git diff --check
+$ git remote -v
+```
+
+La commande groupée s'est terminée avec le code 0. Les deux dernières commandes
+n'ont produit aucune sortie. Aucune installation ni conversation supplémentaire
+n'a été lancée pendant cette reprise.

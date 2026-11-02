@@ -16,7 +16,7 @@ Consulte [les accès compatibles](references/acces.md) avant de promettre un acc
 ### Questions
 
 Utilise `clarify` : une seule question par appel, attends la réponse. En cas
- d'annulation, arrête le réglage sans changer l'état. Les choix vont dans `choices`,
+d'annulation, arrête le réglage sans changer l'état. Les choix vont dans `choices`,
 pas dans le texte. Ne relance pas une question déjà répondue dans la conversation.
 
 1. « Quelle langue préférez-vous ? / Which language do you prefer? »
@@ -51,8 +51,9 @@ L'installation peut télécharger du code : explique sa provenance avant l'accor
 Si elle échoue, conserve `delegation.backend: default`, annonce que les routes
 nommées restent indisponibles et propose de reprendre plus tard.
 
-Après installation, utilise le script voisin `scripts/configure.py` avec le Python
-Hermes. Affiche d'abord son `--help` et fais un aperçu sans `--apply`.
+Après installation, lance le script du profil actif avec :
+`python3 -I "$HERMES_HOME/skills/premier-demarrage/scripts/configure.py"`.
+Affiche d'abord son `--help` et fais un aperçu sans `--apply`.
 Transmets les réponses via ses options, le fournisseur et le modèle courant
 confirmés. Ne mets jamais de clé dans ses arguments. Ajoute `--apply` après accord.
 Il sauvegarde les fichiers de réglage concernés, puis passe exclusivement par
@@ -116,7 +117,9 @@ and write this profile's settings. Without consent, do not write. Keep manual
 approvals. Install with `hermes plugins install advanced-delegation --enable`.
 If installation fails, keep the default backend and disclose missing named routes.
 
-Run the adjacent `scripts/configure.py` using Hermes Python. Read `--help`; preview
+Run the active profile's script with
+`python3 -I "$HERMES_HOME/skills/premier-demarrage/scripts/configure.py"`.
+Read `--help`; preview
 without `--apply`, then apply only with consent. Pass the confirmed provider and
 model, never keys. The script backs up affected settings, uses `hermes config set`,
 and stores preferences in `local/kit/preferences.json`, not SOUL. Four routes share

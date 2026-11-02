@@ -2,15 +2,14 @@
 
 [English guide](README.en.md)
 
-État : préparation locale 0.1.0, incomplète. Le fichier de consignes `SOUL.md`
-n'a pas pu être créé à cause d'un refus d'approbation. Ne distribuez pas cette
-version à un débutant : le démarrage automatique du questionnaire manque.
+État : kit local complet, version 0.1.0. Le fichier `SOUL.md` contient les
+consignes de démarrage du questionnaire. Le kit n'est pas encore publié.
 Les vérifications techniques et leurs limites figurent dans [docs/TESTS.md](docs/TESTS.md).
 
 Le kit prépare un coordinateur, quatre routes de sous-agents et une méthode de
 relecture. Il ne fournit ni abonnement IA ni crédit API. Il ne contient pas de
-compte préconnecté. Les étapes suivantes décrivent le parcours prévu après levée
-de cette restriction ; elles ne prouvent pas un parcours Desktop testé.
+compte préconnecté. Le parcours Desktop et le démarrage du questionnaire dans
+une conversation IA restent à tester.
 
 ## 1. Installer Hermes
 
@@ -25,9 +24,10 @@ Saisissez clés et codes dans les écrans de connexion Hermes, jamais dans le ch
 
 ## 2. Ajouter le kit local
 
-Cette version n'est pas publiée. Récupérez le dossier complet par le canal privé
-convenu, puis ouvrez un terminal **dans ce dossier**, qui doit contenir
-`distribution.yaml`. Aucun téléchargement GitHub du kit n'est disponible.
+Le kit sera disponible à `https://github.com/<auteur>/kit-hermes`
+(adresse définitive donnée à la publication). Cette version n'est pas encore
+publiée. Après téléchargement du dossier complet, ouvrez un terminal
+**dans ce dossier**, qui doit contenir `distribution.yaml`.
 
 - Windows : ouvrez le dossier, clic droit, « Ouvrir dans le Terminal ».
 - macOS : ouvrez Terminal puis saisissez `cd `, glissez le dossier et appuyez sur Entrée.
@@ -65,9 +65,9 @@ doit être copié d'un profil à un autre par le coordinateur.
 
 Dans une nouvelle conversation, dites « Configure mon coordinateur ».
 Le coordinateur doit proposer langue, ton, accès IA, budget, usages, autonomie
-et canal, une question à la fois. Dans cette version incomplète, demandez
-explicitement « Charge la skill premier-demarrage » pour inspecter le parcours,
-sans le considérer comme une validation du démarrage automatique.
+et canal, une question à la fois. Si vous n'avez pas encore enregistré de
+préférences, les consignes du SOUL demandent de charger la skill `premier-demarrage`.
+Ce démarrage reste à vérifier dans une conversation IA réelle.
 
 Après votre accord, il installe le plugin officiel `advanced-delegation`, sauvegarde
 les réglages concernés et prépare `rapide`, `standard`, `profond` et `code`.

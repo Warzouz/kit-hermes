@@ -1,9 +1,16 @@
 # Tests exécutés
 
-Résultat : contrôles techniques réussis sur Hermes v0.22.5 ; distribution incomplète.
-SOUL.md manque dans le dépôt, sa création ayant été refusée par le garde-fou.
-Le SOUL observé dans le profil installé est celui généré par défaut par Hermes
-(lecture vérifiée), pas celui du kit. Il ne déclenche pas le questionnaire.
+État actuel : kit complet, avec `SOUL.md` en place après relecture.
+Le nouveau test d'installation figure en fin de document. Le démarrage du
+questionnaire dans une conversation IA et le parcours Desktop restent à tester.
+
+## Historique : premier test sans le SOUL du kit
+
+Lors du premier test ci-dessous, la distribution était incomplète : la création
+de `SOUL.md` avait été refusée par le garde-fou. Le profil installé contenait
+alors le SOUL généré par défaut par Hermes, pas celui du kit. Ce SOUL ne
+déclenchait pas le questionnaire. Les résultats historiques suivants décrivent
+cet état ancien, pas le kit actuel.
 
 ## Commande et isolation
 
@@ -161,37 +168,36 @@ tirets cadratins, espaces terminaux et `git diff --check` contrôlés. Aucun pla
 source de 300 lignes ni plafond de fonction de 60 lignes dépassé.
 `git remote -v` n'a retourné aucune ligne : aucun distant configuré.
 
-## Refus et non testé
+## Refus et limites du premier test
 
-- Écriture de SOUL.md : refus d'approbation, sans contournement.
+- Écriture de SOUL.md lors du premier test : refus d'approbation, sans contournement.
+  Le SOUL est désormais en place après copie approuvée par l'orchestrateur.
 - Suppression récursive du dossier de test : refus du garde-fou non interactif,
   sans autre méthode de suppression essayée. Le dossier est conservé sous TMPDIR.
 - `execute_code` : interdit dans cette session non interactive ; aucun code exécuté
   par cet outil. Les scripts de fichier ont été exécutés par le terminal.
 - Démarrage automatique et conversation IA : non testés, aucun fournisseur isolé
-  connecté et consigne SOUL du kit absente.
+  connecté. Lors de ce premier test, la consigne SOUL du kit était absente.
 - Relecture par un autre modèle : non effectuée.
 - Parcours Desktop sur Windows, macOS et Linux : non testés. Les guides sont
   textuels, sans captures présentées comme observées.
 - Réinstallation forcée : non testée et non recommandée pour une mise à jour.
 
-Le critère de fin complet de la distribution n'est pas atteint. La phase de
-construction est remise à l'orchestrateur selon ses décisions de reprise.
+À la fin de ce premier test, le critère de distribution complète n'était pas
+atteint. L'orchestrateur a ensuite repris la construction.
 
-## Reprise : proposition de SOUL
+## Historique : proposition de SOUL
 
-Le texte bilingue complet est livré dans `SOUL.proposition.md` pour relecture.
-SOUL.md n'a pas été créé et le dossier de test n'a pas été supprimé ni réutilisé.
-L'installation ci-dessus a donc été testée **sans SOUL.md du kit**. La proposition
-n'a pas été chargée comme identité du profil et son comportement n'est pas validé.
+Le texte bilingue avait été livré dans `SOUL.proposition.md` pour relecture,
+sans création de SOUL.md ni nouveau test d'installation. L'installation décrite
+plus haut avait donc été testée **sans SOUL.md du kit**. La proposition n'avait
+pas été chargée comme identité du profil.
 
-L'orchestrateur copiera la proposition en SOUL.md après relecture et accord, puis
-fera un nouveau test d'installation. Il faudra contrôler que le SOUL installé
-correspond au fichier du kit et que l'absence de préférences déclenche la skill.
-Les tests IA, la relecture inter-modèles et les parcours Desktop restent à faire.
-Le nettoyage du dossier de test revient à l'orchestrateur.
+Après relecture, l'orchestrateur a copié la proposition en SOUL.md. Le nouveau
+test ci-dessous vérifie l'installation du SOUL. Les tests IA, la relecture
+inter-modèles et les parcours Desktop restent à faire.
 
-Contrôles rejoués sur les 21 fichiers, proposition incluse :
+Contrôles de cette ancienne reprise sur les 21 fichiers, proposition incluse :
 
 ```text
 $ PYTHONDONTWRITEBYTECODE=1 python3 scripts/check_quality.py
@@ -207,3 +213,98 @@ $ git remote -v
 La commande groupée s'est terminée avec le code 0. Les deux dernières commandes
 n'ont produit aucune sortie. Aucune installation ni conversation supplémentaire
 n'a été lancée pendant cette reprise.
+
+## Nouveau test : kit complet avec SOUL.md
+
+Test du 2 novembre 2026, installation enregistrée à `22:36:29+00:00`.
+Le dossier `/tmp/kit-final-home` était absent avant le test. Chaque commande
+Hermes a reçu `HERMES_HOME` et `HERMES_ROOT` dans son propre environnement via
+`env`, sans export dans le terminal partagé. Aucun `profile delete` utilisé.
+Dans les extraits, `$KIT` désigne le dépôt local et `$HERMES_CLI` le lanceur
+Hermes installé. Les chemins personnels et la décoration sont neutralisés
+comme dans les extraits historiques.
+
+Un premier appel du lanceur avec `profile install --help` a échoué :
+
+```text
+hermes: no dependency environment is committed for this install; run `hermes pm repair`
+exit=1
+```
+
+L'aide a ensuite été lue avec le Python de l'environnement Hermes déjà installé,
+en mode `-I -B` et avec les mêmes chemins isolés. Aucune réparation de
+l'installation hôte n'a été lancée. L'installation demandée avec le lanceur
+habituel a ensuite préparé les dépendances du dossier isolé et a réussi :
+
+```text
+$ env HERMES_HOME=/tmp/kit-final-home HERMES_ROOT=/tmp/kit-final-home $HERMES_CLI profile install $KIT -y
+exit=0
+hermes: preparing dependencies for this data root (the checkout's updates belong to $ACCOUNT/.hermes)...
+Preparing the isolated Hermes runtime…
+Installing Python dependencies
+Installing Python dependencies
+Distribution: kit-hermes v0.1.0
+  Coordinateur personnalisable / Personalizable coordinator
+  Requires: Hermes >=0.22.5
+  Source:   $KIT
+  Target:   /tmp/kit-final-home/profiles/kit-hermes
+Installed 'kit-hermes' v0.1.0
+  Profile path: /tmp/kit-final-home/profiles/kit-hermes
+  Use with:      hermes -p kit-hermes chat
+
+$ env HERMES_HOME=/tmp/kit-final-home HERMES_ROOT=/tmp/kit-final-home $HERMES_CLI profile info kit-hermes
+exit=0
+Distribution: kit-hermes
+Version:      0.1.0
+Description:  Coordinateur personnalisable / Personalizable coordinator
+License:      MIT
+Requires:     Hermes >=0.22.5
+Source:       $KIT
+Installed:    2026-11-02T22:36:29+00:00
+
+$ env HERMES_HOME=/tmp/kit-final-home HERMES_ROOT=/tmp/kit-final-home $HERMES_CLI -p kit-hermes skills list
+exit=0
+accord-avant-action | local | local | enabled
+premier-demarrage  | local | local | enabled
+relecture-croisee  | local | local | enabled
+travail-verifiable | local | local | enabled
+0 hub-installed, 0 builtin, 4 local - 4 enabled, 0 disabled
+
+$ env HERMES_HOME=/tmp/kit-final-home HERMES_ROOT=/tmp/kit-final-home $HERMES_CLI profile update kit-hermes -y
+exit=0
+Updated 'kit-hermes' → v0.1.0
+```
+
+L'aide de `profile update` a confirmé les options `--force-config` et `-y`.
+Le test n'a pas utilisé `--force-config`. Après mise à jour, lecture des fichiers
+installés et assertions Python réussies :
+
+```text
+Installed SOUL matches kit after update: PASS
+Installed skills: accord-avant-action, premier-demarrage, relecture-croisee, travail-verifiable
+Preferences absent; first-run instructions present: PASS (static check only)
+Host kit-hermes profile absent: PASS
+```
+
+Le SOUL installé est identique, octet par octet, à celui du dépôt.
+L'absence de préférences et la présence des consignes de démarrage ont été
+contrôlées dans les fichiers. Ce contrôle ne valide pas le déclenchement du
+questionnaire par un modèle. Aucune conversation IA ni interface Desktop testée.
+
+Contrôles locaux rejoués sur le kit complet :
+
+```text
+$ python3 -I scripts/check_quality.py
+Quality checks: PASS (21 files)
+$ python3 -I scripts/scan_distribution.py
+Scanned 21 files; findings: 0
+gitleaks: absent; documented regex fallback used (not entropy detection)
+```
+
+Recherche récursive du caractère U+2014, hors `.git` : aucune sortie,
+code 1, soit zéro occurrence. Le scan regex ne détecte pas les secrets par entropie.
+
+Après vérification du chemin exact et de l'absence de lien symbolique,
+`rm -r /tmp/kit-final-home` a réussi. Le dossier n'existe plus.
+La liste des profils hôtes a été relue après le test et après nettoyage :
+aucun profil `kit-hermes`. Aucun distant Git configuré, aucune publication.

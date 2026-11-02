@@ -2,14 +2,14 @@
 
 [Guide français](README.md)
 
-Status: local 0.1.0 preparation, incomplete. An approval guard prevented creation
-of `SOUL.md`. Do not distribute this version to beginners: the automatic first-run
-instruction is missing. See [actual test results](docs/TESTS.md).
+Status: complete local kit, version 0.1.0. `SOUL.md` includes the first-run
+questionnaire instructions. This version is not published yet.
+See [actual test results](docs/TESTS.md).
 
 This kit prepares one coordinator, four subagent routes, and a review method.
-It includes no AI subscription, API credit, or connected account. The steps below
-describe the intended workflow once the restriction is resolved, not a verified
-Desktop onboarding journey.
+It includes no AI subscription, API credit, or connected account. Desktop
+onboarding and automatic questionnaire startup in a real AI conversation
+remain untested.
 
 ## 1. Install Hermes
 
@@ -22,8 +22,10 @@ Enter keys and login codes only in Hermes login screens, never in chat.
 
 ## 2. Install the local kit
 
-This version is not published. Obtain the complete folder through the agreed
-private channel. Open a terminal **in that folder**, containing `distribution.yaml`:
+The kit will be available at `https://github.com/<auteur>/kit-hermes`
+(final address provided at publication). This version is not published yet.
+After downloading the complete folder, open a terminal **in that folder**,
+containing `distribution.yaml`:
 
 - Windows: right-click the folder and choose “Open in Terminal”.
 - macOS: open Terminal, type `cd `, drag the folder in, then press Enter.
@@ -59,8 +61,8 @@ copy credential stores between profiles.
 
 In a new conversation, say “Set up my coordinator”. The coordinator should ask
 language, tone, AI access, budget, uses, autonomy, and channel, one at a time.
-In this incomplete version, explicitly say “Load premier-demarrage” to inspect
-the skill, without treating this as validation of automatic first-run behavior.
+When no preferences have been saved yet, the SOUL instructions ask the coordinator
+to load `premier-demarrage`. This startup still needs a real AI conversation test.
 
 With your consent it installs the official `advanced-delegation` plugin, backs up
 affected settings, and prepares `rapide`, `standard`, `profond`, and `code` routes.

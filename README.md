@@ -24,9 +24,9 @@ Saisissez clés et codes dans les écrans de connexion Hermes, jamais dans le ch
 
 ## 2. Ajouter le kit local
 
-Le kit sera disponible à `https://github.com/<auteur>/kit-hermes`
-(adresse définitive donnée à la publication). Cette version n'est pas encore
-publiée. Après téléchargement du dossier complet, ouvrez un terminal
+Le kit est disponible à `https://github.com/Warzouz/kit-hermes`.
+Téléchargez-le (bouton vert « Code », puis « Download ZIP ») et décompressez-le.
+Ouvrez ensuite un terminal
 **dans ce dossier**, qui doit contenir `distribution.yaml`.
 
 - Windows : ouvrez le dossier, clic droit, « Ouvrir dans le Terminal ».

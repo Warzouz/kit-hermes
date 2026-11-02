@@ -22,9 +22,9 @@ Enter keys and login codes only in Hermes login screens, never in chat.
 
 ## 2. Install the local kit
 
-The kit will be available at `https://github.com/<auteur>/kit-hermes`
-(final address provided at publication). This version is not published yet.
-After downloading the complete folder, open a terminal **in that folder**,
+The kit is available at `https://github.com/Warzouz/kit-hermes`.
+Download it (green “Code” button, then “Download ZIP”) and unzip it.
+Then open a terminal **in that folder**,
 containing `distribution.yaml`:
 
 - Windows: right-click the folder and choose “Open in Terminal”.
